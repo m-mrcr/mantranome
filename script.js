@@ -3,18 +3,17 @@ let time;
 
 const timeToggle = document.getElementById("timeToggle");
 const countdownEl = document.getElementById("countdown");
-const theBox = document.getElementById("timer");
 
 timeToggle.addEventListener("click", () => {
   const startingMinutes = document.getElementById("timeSelector").valueAsNumber;
-  time = startingMinutes * 60;
+  time = Math.floor(startingMinutes * 60);
 
   const button = document.getElementById("timeToggle");
 
   if (timeToggle.classList.contains("clicked")) {
     clearInterval(intervalId);
     button.classList.remove("clicked");
-    theBox.classList.remove("outOfTime");
+    document.body.classList.remove("outOfTime");
     countdownEl.innerHTML = "Mantranome";
     button.textContent = "Start";
   } else {
@@ -27,7 +26,7 @@ timeToggle.addEventListener("click", () => {
 
 function updateCountdown() {
   if (time <= 0) {
-    theBox.classList.add("outOfTime");
+    document.body.classList.add("outOfTime");
   }
   const minutes = Math.floor(Math.abs(time) / 60);
   let seconds = Math.abs(time) % 60;
