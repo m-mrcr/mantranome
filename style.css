@@ -5,15 +5,20 @@ body {
 }
 
 #timer {
-  background: black;
+  background: rgb(11, 162, 227);
   margin: 0;
   border-radius: 1rem;
   padding: 10rem;
   position: absolute;
   text-align: center;
+  min-width: 40vw;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+#timer.outOfTime {
+  background-color: rgb(207, 25, 80);
 }
 
 #countdown {
