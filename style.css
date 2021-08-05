@@ -1,39 +1,47 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Noto Sans JP", sans-serif;
   background: rgb(11, 162, 227);
   transition: background 0.4s;
+  overscroll-behavior: contain;
 }
 
 body.outOfTime {
   background: rgb(207, 25, 80);
 }
 
-#timer {
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+#track {
+  stroke: lightgray;
+  fill: none;
+  stroke-width: 15;
 }
 
-#countdown {
-  font-size: 50px;
-  color: white;
+#progress {
+  stroke: black;
+  fill: none;
+  stroke-width: 15;
+  stroke-dasharray: var(--outlineLength);
+  animation: dash var(--progess) seconds linear forwards;
 }
 
-#countdown:before {
-  visibility: hidden;
+#toggles {
+  display: flex;
+  justify-content: center;
+  position: relative;
 }
 
-#countdown:after {
-}
-
-#timeToggle {
-  font-family: "Noto Sans JP", sans-serif;
-  border-radius: 15px;
-  padding: 15px;
-  margin-top: 15px;
-  width: 100%;
-}
+/* TO DO
+- Add shadow to #track
+- add shadow to #progress
+- make time selector and button prettier
+- get animation to be smooth
+- get timer text to show up
+- set default time in selector
+*/

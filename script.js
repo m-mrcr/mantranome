@@ -1,12 +1,22 @@
 let intervalId;
-let time;
+let totalTime;
+let elapsedTime;
 
 const timeToggle = document.getElementById("timeToggle");
 const countdownEl = document.getElementById("countdown");
+const countdownText = document.getElementById("countdownText");
+const timeDisplay = document.querySelector(".timeDisplay");
+const outline = document.querySelector("#progress");
+const outlineLength = outline.getTotalLength();
+
+outline.style.setProperty("--progess", outlineLength);
+outline.style.setProperty("--outlineLength", outlineLength);
+
+const timeSelect = document.querySelectorAll(".timeSelect button");
 
 timeToggle.addEventListener("click", () => {
   const startingMinutes = document.getElementById("timeSelector").valueAsNumber;
-  time = Math.floor(startingMinutes * 60);
+  totalTime = Math.floor(startingMinutes * 60);
 
   const button = document.getElementById("timeToggle");
 
@@ -14,9 +24,10 @@ timeToggle.addEventListener("click", () => {
     clearInterval(intervalId);
     button.classList.remove("clicked");
     document.body.classList.remove("outOfTime");
-    countdownEl.innerHTML = "Mantranome";
+    countdownEl.innerHTML = "";
     button.textContent = "Start";
   } else {
+    elapsedTime = totalTime;
     updateCountdown();
     intervalId = setInterval(updateCountdown, 1000);
     button.classList.add("clicked");
@@ -25,14 +36,15 @@ timeToggle.addEventListener("click", () => {
 });
 
 function updateCountdown() {
-  if (time <= 0) {
+  if (elapsedTime <= 0) {
     document.body.classList.add("outOfTime");
   }
-  const minutes = Math.floor(Math.abs(time) / 60);
-  let seconds = Math.abs(time) % 60;
+  const minutes = Math.floor(Math.abs(elapsedTime) / 60);
+  let seconds = Math.abs(elapsedTime) % 60;
+  let progress = outlineLength - (elapsedTime / totalTime) * outlineLength;
+  outline.style.strokeDashoffset = progress;
 
   seconds = seconds < 10 ? "0" + seconds : seconds;
-
-  countdownEl.innerHTML = `${minutes}:${seconds}`;
-  time--;
+  countdownText.innerHTML = `${minutes}:${seconds}`;
+  elapsedTime--;
 }
