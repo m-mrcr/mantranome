@@ -17,18 +17,37 @@ body.outOfTime {
   background: rgb(207, 25, 80);
 }
 
+#countdown {
+  overflow: visible;
+  transform: rotate(-90deg);
+}
+
+#countdownText {
+  font-size: 48pt;
+  fill: white;
+  /* transform: rotate(90deg); */
+}
+
 #track {
   stroke: lightgray;
   fill: none;
-  stroke-width: 15;
+  stroke-width: 50;
 }
 
 #progress {
   stroke: black;
   fill: none;
-  stroke-width: 15;
+  stroke-width: 50;
   stroke-dasharray: var(--outlineLength);
-  animation: dash var(--progess) seconds linear forwards;
+  stroke-dashoffset: var(--outlineLength);
+  animation: dash var(--progess) s;
+  transition: all 1s linear;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 #toggles {

@@ -24,7 +24,6 @@ timeToggle.addEventListener("click", () => {
     clearInterval(intervalId);
     button.classList.remove("clicked");
     document.body.classList.remove("outOfTime");
-    countdownEl.innerHTML = "";
     button.textContent = "Start";
   } else {
     elapsedTime = totalTime;
@@ -36,7 +35,7 @@ timeToggle.addEventListener("click", () => {
 });
 
 function updateCountdown() {
-  if (elapsedTime <= 0) {
+  if (elapsedTime <= -1) {
     document.body.classList.add("outOfTime");
   }
   const minutes = Math.floor(Math.abs(elapsedTime) / 60);
@@ -45,6 +44,6 @@ function updateCountdown() {
   outline.style.strokeDashoffset = progress;
 
   seconds = seconds < 10 ? "0" + seconds : seconds;
-  countdownText.innerHTML = `${minutes}:${seconds}`;
+  countdownText.textContent = `${minutes}:${seconds}`;
   elapsedTime--;
 }
