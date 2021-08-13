@@ -8,40 +8,35 @@
 
 body {
   font-family: "Noto Sans JP", sans-serif;
-  background: rgb(11, 162, 227);
+  background: black;
   transition: background 0.4s;
   overscroll-behavior: contain;
 }
 
-body.outOfTime {
-  background: rgb(207, 25, 80);
-}
-
 #countdown {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   overflow: visible;
   transform: rotate(-90deg);
-}
-
-#countdownText {
-  font-size: 48pt;
-  fill: white;
-  /* transform: rotate(90deg); */
+  position: relative;
 }
 
 #track {
-  stroke: lightgray;
+  stroke: black;
   fill: none;
   stroke-width: 50;
 }
 
 #progress {
-  stroke: black;
+  stroke: rgb(54, 59, 54);
   fill: none;
-  stroke-width: 50;
+  stroke-width: 30;
   stroke-dasharray: var(--outlineLength);
   stroke-dashoffset: var(--outlineLength);
   animation: dash var(--progess) s;
-  transition: all 1s linear;
+  transition: stroke-dasharray 1s linear, stroke-dashoffset 1s linear;
 }
 
 @keyframes dash {
@@ -50,17 +45,66 @@ body.outOfTime {
   }
 }
 
-#toggles {
+#timeOptionsContainer {
   display: flex;
+  font-size: 10vw;
+  color: rgb(105, 116, 105);
   justify-content: center;
-  position: relative;
+}
+
+.timeOptionsWrapper {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-evenly; */
+  overflow: auto;
+}
+
+.timeOption:not(.main, .next, .next-next, .prev, .prev-prev) {
+  padding: 1vw;
+  display: inline-block;
+  transition: 0.5s;
+  display: none;
+}
+
+.timeOption.main {
+  transform: scale(1);
+}
+
+.timeOption.next {
+  transform: scale(0.8);
+}
+
+.timeOption.next-next {
+  transform: scale(0.6);
+}
+
+.timeOption.prev {
+  transform: scale(0.8);
+}
+
+.timeOption.prev-prev {
+  transform: scale(0.6);
+}
+
+#timeToggle {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 15vw;
+  color: rgb(105, 116, 105);
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: 100%;
+  height: 51%;
+  width: 51%;
+  position: absolute;
+  rotate: 90deg;
+}
+
+#countdown.outOfTime #timeToggle,
+#countdown.outOfTime #progress {
+  color: rgb(207, 25, 80);
+  stroke: rgb(207, 25, 80);
 }
 
 /* TO DO
-- Add shadow to #track
-- add shadow to #progress
-- make time selector and button prettier
-- get animation to be smooth
-- get timer text to show up
-- set default time in selector
+
 */

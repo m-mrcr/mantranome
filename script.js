@@ -4,7 +4,6 @@ let elapsedTime;
 
 const timeToggle = document.getElementById("timeToggle");
 const countdownEl = document.getElementById("countdown");
-const countdownText = document.getElementById("countdownText");
 const timeDisplay = document.querySelector(".timeDisplay");
 const outline = document.querySelector("#progress");
 const outlineLength = outline.getTotalLength();
@@ -15,7 +14,8 @@ outline.style.setProperty("--outlineLength", outlineLength);
 const timeSelect = document.querySelectorAll(".timeSelect button");
 
 timeToggle.addEventListener("click", () => {
-  const startingMinutes = document.getElementById("timeSelector").valueAsNumber;
+  const startingMinutes = Number(document.querySelector(".main").textContent);
+
   totalTime = Math.floor(startingMinutes * 60);
 
   const button = document.getElementById("timeToggle");
@@ -23,20 +23,19 @@ timeToggle.addEventListener("click", () => {
   if (timeToggle.classList.contains("clicked")) {
     clearInterval(intervalId);
     button.classList.remove("clicked");
-    document.body.classList.remove("outOfTime");
+    countdownEl.classList.remove("outOfTime");
     button.textContent = "Start";
   } else {
     elapsedTime = totalTime;
     updateCountdown();
     intervalId = setInterval(updateCountdown, 1000);
     button.classList.add("clicked");
-    button.textContent = "Stop";
   }
 });
 
 function updateCountdown() {
   if (elapsedTime <= -1) {
-    document.body.classList.add("outOfTime");
+    countdownEl.classList.add("outOfTime");
   }
   const minutes = Math.floor(Math.abs(elapsedTime) / 60);
   let seconds = Math.abs(elapsedTime) % 60;
@@ -44,6 +43,6 @@ function updateCountdown() {
   outline.style.strokeDashoffset = progress;
 
   seconds = seconds < 10 ? "0" + seconds : seconds;
-  countdownText.textContent = `${minutes}:${seconds}`;
+  timeToggle.textContent = `${minutes}:${seconds}`;
   elapsedTime--;
 }
